@@ -66,7 +66,7 @@ const Navigation = () => {
           <span className="hidden nav-item-name mt-[3rem]">SHOP</span>{" "}
         </Link>
 
-        <Link to="/cart" className="flex relative">
+        <Link to="/cart" className="relative flex">
           <div className="flex items-center transition-transform transform hover:translate-x-2">
             <AiOutlineShoppingCart className="mt-[3rem] mr-2" size={26} />
             <span className="hidden nav-item-name mt-[3rem]">Cart</span>{" "}
@@ -83,8 +83,8 @@ const Navigation = () => {
           </div>
         </Link>
 
-        <Link to="/favorite" className="flex relative">
-          <div className="flex justify-center items-center transition-transform transform hover:translate-x-2">
+        <Link to="/favorite" className="relative flex">
+          <div className="flex items-center justify-center transition-transform transform hover:translate-x-2">
             <FaHeart className="mt-[3rem] mr-2" size={20} />
             <span className="hidden nav-item-name mt-[3rem]">
               Favorites

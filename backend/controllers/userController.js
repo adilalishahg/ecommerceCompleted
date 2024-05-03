@@ -40,13 +40,13 @@ const loginUser = asyncHandler(async (req, res) => {
   console.log(password);
 
   const existingUser = await User.findOne({ email });
-
+  
   if (existingUser) {
     const isPasswordValid = await bcrypt.compare(
       password,
       existingUser.password
     );
-
+    console.log(isPasswordValid)
     if (isPasswordValid) {
       createToken(res, existingUser._id);
 

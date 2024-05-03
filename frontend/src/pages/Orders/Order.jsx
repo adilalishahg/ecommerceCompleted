@@ -55,7 +55,7 @@ const Order = () => {
       }
     }
   }, [errorPayPal, loadingPaPal, order, paypal, paypalDispatch]);
-
+console.log(order)
   function onApprove(data, actions) {
     return actions.order.capture().then(async function (details) {
       try {
@@ -93,8 +93,8 @@ const Order = () => {
     <Messsage variant="danger">{error.data.message}</Messsage>
   ) : (
     <div className="container flex flex-col ml-[10rem] md:flex-row">
-      <div className="md:w-2/3 pr-4">
-        <div className="border gray-300 mt-5 pb-4 mb-5">
+      <div className="pr-4 md:w-2/3">
+        <div className="pb-4 mt-5 mb-5 border gray-300">
           {order.orderItems.length === 0 ? (
             <Messsage>Order is empty</Messsage>
           ) : (
@@ -117,7 +117,7 @@ const Order = () => {
                         <img
                           src={item.image}
                           alt={item.name}
-                          className="w-16 h-16 object-cover"
+                          className="object-cover w-16 h-16"
                         />
                       </td>
 
@@ -140,9 +140,9 @@ const Order = () => {
       </div>
 
       <div className="md:w-1/3">
-        <div className="mt-5 border-gray-300 pb-4 mb-4">
-          <h2 className="text-xl font-bold mb-2">Shipping</h2>
-          <p className="mb-4 mt-4">
+        <div className="pb-4 mt-5 mb-4 border-gray-300">
+          <h2 className="mb-2 text-xl font-bold">Shipping</h2>
+          <p className="mt-4 mb-4">
             <strong className="text-pink-500">Order:</strong> {order._id}
           </p>
 
@@ -191,12 +191,13 @@ const Order = () => {
           <span>$ {order.totalPrice}</span>
         </div>
 
-        {!order.isPaid && (
+        {(!order.isPaid && order.paymentMethod!=='Cash')&& (
           <div>
             {loadingPay && <Loader />}{" "}
-            {isPending ? (
+            {isPending  ?  (
               <Loader />
             ) : (
+              
               <div>
                 <div>
                   <PayPalButtons
@@ -211,14 +212,25 @@ const Order = () => {
         )}
 
         {loadingDeliver && <Loader />}
-        {userInfo && userInfo.isAdmin && order.isPaid && !order.isDelivered && (
+        {(userInfo && userInfo.isAdmin   && !order.isDelivered) ? (
           <div>
             <button
               type="button"
-              className="bg-pink-500 text-white w-full py-2"
+              className="w-full py-2 text-white bg-pink-500"
               onClick={deliverHandler}
             >
               Mark As Delivered
+            </button>
+          </div>
+        ):(
+          <div  className="w-full py-2 text-white bg-green-500">
+            <button
+              type="button"
+              className="w-full py-2 text-white"
+              onClick={deliverHandler}
+              disabled
+            >
+              Delivered
             </button>
           </div>
         )}
